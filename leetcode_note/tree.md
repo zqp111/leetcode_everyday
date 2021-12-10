@@ -2,13 +2,13 @@
 
 ### 1. 基础知识
 
-**满二叉树：**叶子节点在同一层且铺满。
+**满二叉树: **叶子节点在同一层且铺满。
 
-**完全二叉树： ** 只有最后一层没有铺满，且叶子节点集中在左边。
+**完全二叉树: ** 只有最后一层没有铺满，且叶子节点集中在左边。
 
-**二叉搜索树：** 左子树值均小于根节点，右子树均大于根节点。
+**二叉搜索树: ** 左子树值均小于根节点，右子树均大于根节点。
 
-**平衡二叉搜索树：**左右子树高度差不超过1的二叉搜索树。
+**平衡二叉搜索树: **左右子树高度差不超过1的二叉搜索树。
 
 ### 2. 二叉树的遍历
 
@@ -119,7 +119,9 @@ def travel(root:Node):
 
 ```python
 def travel(root:Node):
-    queue = [root]
+    queue = []
+    if root is not None:
+        queue.append(root)
     while queue:
         tmp_node = queue.pop(0)
         process(tmp_node)
@@ -131,7 +133,9 @@ def travel(root:Node):
 
 ```python
 def travel(root:Node):
-    queue = [root]
+    queue = []
+    if root is not None:
+        queue.append(root)
     cur_level = 0
     while queue:
         cur_level_length = len(queue) # 当前层节点数
