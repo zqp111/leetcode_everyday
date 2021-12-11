@@ -29,7 +29,28 @@ class Solution:
     #         if tmp_node.right is not None: queue.append(tmp_node.right)
     #     return node_num
 
-    ## 
+    ## 非遍历, 利用完全二叉树的性质
+        
+        return self.get_node_num(root)
+    
+    def __is_complete(self, root):
+        if root is None:
+            return True, 0
+        left, right = root.left, root.right
+        l_depth, r_depth = 1, 1
+        while left is not None:
+            left = left.left
+            l_depth += 1
+        while right is not None:
+            right = right.right
+            r_depth += 1
+        return l_depth == r_depth, (2 << (l_depth-1)) -1
+
+    def get_node_num(self, root: TreeNode) -> int:
+        f, num = self.__is_complete(root)
+        if f:
+            return num
+        return 1 + self.get_node_num(root.left) + self.get_node_num(root.right)
 
 # @lc code=end
 

@@ -147,5 +147,22 @@ def travel(root:Node):
        	cur_level += 1
 ```
 
+### 3. 二叉树的构造
+
+**前、中** 或 **后、中** 可以唯一确定二叉树，需要用中序遍历来确定左右子树。
+
+**中序、后序: ** 后序的最后一位必为根节点，中序以根节点分左右子树，递归创建
+
+```python
+def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
+        if len(inorder) == 0:
+            return None
+        root = TreeNode(postorder[-1])
+        inorderRootIndex = inorder.index(postorder[-1])
+        root.left = self.buildTree(inorder[:inorderRootIndex], postorder[:inorderRootIndex])
+        root.right = self.buildTree(inorder[inorderRootIndex+1:], postorder[inorderRootIndex:-1])
+        return root
+```
+
 
 
