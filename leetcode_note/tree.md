@@ -168,10 +168,127 @@ def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
 
 
 
-
-
-
-
-
-
 ### 4. 部分例题
+
+**共同祖先-236**
+
+```python
+def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if root is p or root is q or root is None:
+            return root
+        l = self.lowestCommonAncestor(root.left, p, q)
+        r = self.lowestCommonAncestor(root.right, p, q)
+
+        if l is not None and r is not None: 
+            return root
+        elif l is not None:
+            return l
+        return r
+```
+
+**修剪二叉搜索树-669**
+
+```python
+class Solution:
+    def trimBST(self, root: TreeNode, low: int, high: int) -> TreeNode:
+
+        if root is None: return None
+        if root.val < low: return self.trimBST(root.right, low, high)
+        if root.val > high: return self.trimBST(root.left, low, high)
+
+        if root.val <= high: root.right = self.trimBST(root.right, low, high)
+        if root.val >= low: root.left = self.trimBST(root.left, low, high)
+
+        return root
+```
+
+删除二叉搜索树的某个节点-450
+
+```python
+def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+            ## 非递归
+        # if root is None:
+        #     return None
+
+        # searchedNode = root
+        # fatherNode = None
+        # from_root = 0
+        # while searchedNode.val != key:
+        #     if searchedNode.val < key:
+        #         fatherNode = searchedNode
+        #         from_root = 2
+        #         searchedNode = searchedNode.right
+        #     elif searchedNode.val > key:
+        #         fatherNode = searchedNode
+        #         from_root = 1
+        #         searchedNode = searchedNode.left
+        #     if searchedNode is None:
+        #         return root
+
+        # left = searchedNode.left
+        # right = searchedNode.right
+
+        # if right is None:
+        #     if from_root == 0:
+        #         return left
+        #     elif from_root == 1:
+        #         fatherNode.left = left
+        #     else:
+        #         fatherNode.right = left
+        #     return root
+        # else:
+        #     minRightNode = right
+        #     rightFather = searchedNode
+        #     if minRightNode.left is None:
+        #         searchedVal = minRightNode.val
+        #         # print('shanchu')
+        #         right = minRightNode.right
+        #     else:
+        #         while True:
+        #             if minRightNode.left is not None:
+        #                 rightFather = minRightNode
+        #                 minRightNode = minRightNode.left
+        #             else:
+        #                 searchedVal = minRightNode.val
+        #                 rightFather.left = minRightNode.right
+        #                 break
+        #     if from_root == 0:
+        #         newNode = TreeNode(searchedVal)
+        #         newNode.left = left
+        #         newNode.right = right
+        #         minRightNode = None
+        #         return newNode
+        #     elif from_root == 1:
+        #         newNode = TreeNode(searchedVal)
+        #         newNode.left = left
+        #         newNode.right = right
+        #         fatherNode.left = newNode
+        #         minRightNode = None
+        #     else:
+        #         newNode = TreeNode(searchedVal)
+        #         newNode.left = left
+        #         newNode.right = right
+        #         fatherNode.right = newNode
+        #         minRightNode = None
+        #     return root
+            ## 递归
+        if root is None:
+            return None
+        
+        if root.val == key:
+            if root.right is None:
+                return root.left
+            elif root.left is None:
+                return root.right
+            else:
+                cur_node = root.right
+                while cur_node.left is not None:
+                    cur_node = cur_node.left
+                cur_node.left = root.left
+                return root.right
+        if root.val < key: root.right = self.deleteNode(root.right, key)
+        elif root.val > key: root.left = self.deleteNode(root.left, key)
+        return root
+
+```
+
