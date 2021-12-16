@@ -13,6 +13,24 @@
 #         self.right = right
 class Solution:
     def balanceBST(self, root: TreeNode) -> TreeNode:
+        self.list = []
+        self.travel(root)
+        return self.buildTree(self.list)
         
+    def travel(self, root):
+        if root is None:
+            return 
+        self.travel(root.left)
+        self.list.append(root.val)
+        self.travel(root.right)
+    
+    def buildTree(self, nums):
+        if len(nums) == 0:
+            return None
+        mid = len(nums)//2
+        Node = TreeNode(nums[mid])
+        Node.left = self.buildTree(nums[:mid])
+        Node.right = self.buildTree(nums[mid+1:])
+        return Node
 # @lc code=end
 
