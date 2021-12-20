@@ -20,8 +20,12 @@ class Solution:
         if root is None:
             return False
         sum += root.val
-        if root.left is None and root.right is None and sum == targetSum:
-            return True
-        return self.travel(root.left, sum, targetSum) or self.travel(root.right, sum, targetSum)
+        if root.left is None and root.right is None :
+            if sum == targetSum:
+                return True
+            return False
+        if self.travel(root.left, sum, targetSum): return True
+        if self.travel(root.right, sum, targetSum): return True
+        return False
 # @lc code=end
 
