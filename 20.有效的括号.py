@@ -7,20 +7,16 @@
 # @lc code=start
 class Solution:
     def isValid(self, s: str) -> bool:
-        m = [0, 0, 0]
-        for l in s:
-            if l =='(': 
-                m[0] += 1
-            elif l ==')':
-                m[0] -= 1
-            elif l =='[':
-                m[1] += 1
-            elif l ==']':
-                m[1] -= 1
-            elif l =='{':
-                m[2] += 1
-            elif l =='}':
-                m[2] -= 1
-        return m == [0, 0, 0] 
+        stack = []
+        left = set('([{')
+        pair = {')': '(', ']': '[', '}':'{'}
+        for char in s:
+            if char in left:
+                stack.append(char)
+            else:
+                if not stack or pair[char] != stack[-1]:
+                    return False
+                stack.pop(-1)
+        return not len(stack)
 # @lc code=end
 
