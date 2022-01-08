@@ -7,5 +7,13 @@
 # @lc code=start
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        dic = dict()
+        for word in strs:
+            key = ''.join(sorted(word))
+            if dic.get(key, None) is not None:
+                dic[key].append(word)
+            else:
+                dic[key] = [word]
+        return list(dic.values())
 # @lc code=end
 
