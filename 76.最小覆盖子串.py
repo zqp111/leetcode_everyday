@@ -21,7 +21,7 @@ class Solution:
             curDict = {s[0]:1}
         else:
             curDict = dict()
-        while r<len(s):
+        while r<len(s) and l< len(s):
             # print(tmp)
             if self.isValid(curDict, targetDict):
                 if not result or len(tmp) < len(result):
@@ -30,6 +30,10 @@ class Solution:
                 tmp = tmp[1:]
                 l += 1
             else:
+                if result: 
+                    if s[l] in curDict.keys(): curDict[s[l]] -= 1
+                    tmp = tmp[1:]
+                    l +=1
                 r += 1
                 if r >= len(s): return result
                 if s[r] in targetDict.keys(): curDict[s[r]] = curDict.get(s[r], 0)+1
