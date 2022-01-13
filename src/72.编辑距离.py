@@ -25,7 +25,7 @@ class Solution:
                 else:
                     m = 0
                 res[i, j] = min(res[i-1, j]+1, res[i, j-1]+1, res[i-1, j-1]+m)
-        print(res[-1, -1])
+        # print(res[-1, -1])
         return int(res[-1, -1])
 
 # @lc code=end
